@@ -9,6 +9,9 @@
     $spCountuser = Register::spCountuser();
     $newRegister = Register::newRegister($startDate,$endDate);
     $activeUser = Register::spGetactiveUser();
+    $allProjLocation = Register::getProjLocation();
+
+    $month = Register::spGetMonthlyRegister();
     
     $sumUserData = array();
     for($i=0; $i<count($spCountuser); $i++){
@@ -64,14 +67,14 @@
 
       <div class="col-xs-7 col-sm-4">
            <?php 
-                for($i=0; $i<count($location); $i++){
+                for($i=0; $i<count($allProjLocation); $i++){
             ?>
             <div class="row userZone">
                 <div class="col-xs-10 col-sm-10 text-right">
-                    <span class="hsum userZone-title"><?php echo $location[$i]; ?></span>
+                    <span class="hsum userZone-title"><?php echo $allProjLocation[$i]->location; ?></span>
                 </div>
                 <div class="col-xs-2 col-sm-2">
-                    <span id="<?php echo "userZone".$i; ?>" class="userZone-num"></span>
+                    <span class="userZone-num"><?php echo $allProjLocation[$i]->num_of_proj; ?></span>
                 </div>
             </div>
            <?php } ?>
@@ -129,7 +132,6 @@
                                         $myLocation = $sumUserData[$i]['location'];
                                         $summationActiveUser += $sumUserData[$i]['activeuser'];
                                         $summationRegister += $sumUserData[$i]['totaluser'];
-                                        $numberOfProjectInLocation[$myLocation] += 1;
                                         
                                         if (in_array($myLocation, $location)) {
                                             
@@ -169,12 +171,6 @@
                         </div>
                      </div>
                        
-                        <?php
-                            for($i=0; $i<count($location); $i++){ 
-                                if($numberOfProjectInLocation[$location[$i]] == null)
-                                    $numberOfProjectInLocation[$location[$i]] = 0;
-                            }
-                          ?>
                     </section>
                     
     <script src="js/Chart.min.js"></script>
@@ -195,13 +191,7 @@
             $( "#totalNewUser" ).text( <?php echo $summationNewRegis; ?> );
             $( "#activeUser" ).text( <?php echo $summationActiveUser; ?> );
             $( "#inactiveUser" ).text( <?php echo ($summationRegister-$summationActiveUser); ?>);
-            
-//           numbers of projects by zone
-            <?php   
-            for($i=0; $i<count($location); $i++){ ?>
-            $( <?php echo "'#userZone".$i."'"; ?> ).text( <?php echo ($numberOfProjectInLocation[$location[$i]]); ?>);
-            <?php } ?>
-            
+
                 var ctx = document.getElementById("chart-area").getContext("2d");
 				window.myDoughnut = new Chart(ctx).Doughnut(sumUser, {
                         responsive : true
@@ -216,59 +206,6 @@
                         //Number - Spacing between data sets within X values
                         barDatasetSpacing : 1
                 });
-            
-                var ctx3 = document.getElementById("screen-chart").getContext("2d");
-				window.myPie = new Chart(ctx3).Pie(screenData, {
-                    responsive : true
-                });
-            
-                // Build the chart
-                $('#pie').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false
-                    },
-                    title: {
-                        text: ''
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                                style: {
-                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                                }
-                            }
-                        }
-                    },
-                    series: [{
-                        type: 'pie',
-                        name: 'User used',
-                        data: [
-                                ['Firefox',   45.0],
-                                ['IE',       26.8],
-                                {
-                                    name: 'Chrome',
-                                    y: 12.8,
-                                    sliced: true,
-                                    selected: true
-                                },
-                                ['Safari',    8.5],
-                                ['Opera',     6.2],
-                                ['Others',   0.7]
-                            ]
-                            }]
-                        });
-
-
-
             });
         
 
@@ -322,22 +259,6 @@
                 ]
             };
            
-            var screenData = [
-                <?php 
-                    for($i=0; $i<count($screenArray); $i++){
-                ?>
-                        {
-                            value: <?php 
-                                        $percent = round($screenArray[$i][1]/$summationScreenUsage*100);
-                                        echo $percent.","; ?>
-                            color: <?php echo "'".$color[$i]."',"; ?>
-                            label: <?php echo "'".$screenArray[$i][0]."'"; ?>
-                        }
-                <?php
-                    if($i<count($screenArray)-1) echo ",";
-                    }
-                ?>
-            ];
         
             
 	</script>
