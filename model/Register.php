@@ -37,7 +37,7 @@ class Register {
 		self::initializeConnection();
 		$result = null;
 		try {
-			$statement = self::$dbConn->prepare("SELECT * FROM total_register where y_date = 2014");
+			$statement = self::$dbConn->prepare("SELECT * FROM total_register where y_date = '". date("Y") ."'" );
 			$statement->execute();
 			$statement->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
 			$result = $statement->fetchAll();
@@ -96,7 +96,7 @@ group by proj");
 		self::initializeConnection();
 		$result = null;
 		try {
-			$statement = self::$dbConn->prepare("SELECT distinct location from hs_main.project order by location");
+			$statement = self::$dbConn->prepare("SELECT location, count(location) as num_of_proj from hs_main.project group by location order by location");
 			$statement->execute();
 			$statement->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
 			$result = $statement->fetchAll();
