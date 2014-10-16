@@ -22,22 +22,22 @@ class Homecare {
 		}
 	}
 
-	public function spCountHomecare() {
-		self::initializeConnection();
-		$r1 = null;
-		$r2 = null;
-		try {
-			$stmt = self::$dbConn->query("CALL sp_count_homecare");
-			$r1 = $stmt->fetchAll(PDO::FETCH_NUM);
-			$stmt->nextRowset();
-			$r2 = $stmt->fetchAll(PDO::FETCH_NUM);
-		}
-		catch (PDOException $e) {
-			echo "Error: " . $e->getMessage();
-			die();
-		}
-		return array($r1, $r2);
-	}
+//	public function spCountHomecare() {
+//		self::initializeConnection();
+//		$r1 = null;
+//		$r2 = null;
+//		try {
+//			$stmt = self::$dbConn->query("CALL sp_count_homecare");
+//			$r1 = $stmt->fetchAll(PDO::FETCH_NUM);
+//			$stmt->nextRowset();
+//			$r2 = $stmt->fetchAll(PDO::FETCH_NUM);
+//		}
+//		catch (PDOException $e) {
+//			echo "Error: " . $e->getMessage();
+//			die();
+//		}
+//		return array($r1, $r2);
+//	}
     
     public static function homecareRequest($strDate,$endDate) {
 		self::initializeConnection();
