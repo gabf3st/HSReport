@@ -51,8 +51,8 @@
                                         <th class="col-sm-2">Location</th>
                                         <th class="col-sm-1">Access (Days)</th>
                                         <th class="col-sm-1">Mailbox (Days)</th>
-                                        <th class="col-sm-1">Total Header</th>
-                                        <th class="col-sm-1">Total Number</th>
+                                        <th class="col-sm-1">Total Phone Header</th>
+                                        <th class="col-sm-1">Total Phone Number</th>
                                     </tr>
                                 </thead>
                                 <tbody>
