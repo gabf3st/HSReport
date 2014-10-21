@@ -22,23 +22,6 @@ class Homecare {
 		}
 	}
 
-//	public function spCountHomecare() {
-//		self::initializeConnection();
-//		$r1 = null;
-//		$r2 = null;
-//		try {
-//			$stmt = self::$dbConn->query("CALL sp_count_homecare");
-//			$r1 = $stmt->fetchAll(PDO::FETCH_NUM);
-//			$stmt->nextRowset();
-//			$r2 = $stmt->fetchAll(PDO::FETCH_NUM);
-//		}
-//		catch (PDOException $e) {
-//			echo "Error: " . $e->getMessage();
-//			die();
-//		}
-//		return array($r1, $r2);
-//	}
-    
     public static function homecareRequest($strDate,$endDate) {
 		self::initializeConnection();
 		try {
@@ -48,7 +31,7 @@ class Homecare {
                                         sum(review) as review,
                                         sum(success) as success,
                                         sum(cancel) as cancel
-                                        from vw_Homecare
+                                        from vw_homecare
                                         where period between '".$strDate."' and '".$endDate."'
                                         group by Project
                                         order by sum(total) desc; ");
@@ -67,7 +50,7 @@ class Homecare {
 		self::initializeConnection();
 		try {
 			$statement = self::$dbConn->query(" select homecare_type_title , sum(total) as total
-                                        from vw_Homecare
+                                        from vw_homecare
                                         where period  between '".$strDate."' and '".$endDate."'
                                         group by homecare_type_title 
                                         order by count(*)  desc ;  ");
