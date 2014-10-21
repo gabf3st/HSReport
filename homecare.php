@@ -83,16 +83,16 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+        
+        $("#filter-toggle").click(function(e) {
+            e.preventDefault();
+            $("#filter").toggleClass("toggled");
+        });
 
         $("#filter-data").click(function(e) {
             $("#filter").toggle("100", "swing");
         });
-        
-        $("#filter-toggle").click(function(e) {
-            $("#filter").toggle("100", "swing");
-        });
-        
-        
+    
         $("#export-data").click(function(e) {
             window.open('data:application/vnd.ms-excel,' + $('#myData').html());
             e.preventDefault();

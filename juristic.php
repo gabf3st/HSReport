@@ -78,6 +78,11 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+        
+        $("#filter-toggle").click(function(e) {
+            e.preventDefault();
+            $("#filter").toggleClass("toggled");
+        });
 
         $("#filter-data").click(function(e) {
             $("#filter").toggle("100", "swing");
