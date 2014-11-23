@@ -1,6 +1,5 @@
 <?php 
-    include "header.php";
-
+    
     $startDate = $_POST['startDate'];
 
     if($_POST['startDate']==null){
@@ -112,20 +111,18 @@ try {
     
     usort($screenArray, "cmp");
 
-//    print_r($data);
+//    print_r($screenArray);
     
 } catch (Exception $e) {
+    include "header.php";
 //    echo "<div class='centered'>".$e->getCode(). " : ". $e->getDescription() ."</div>";
     echo "<div class='centered'><h4>To access an information <br>Please log in with AUTHORIZED Google Account</h4>
             <a class='btn btn-lg btn-success' href='".$client->createAuthUrl()."'>Connect to Google</a></div>";
     
     die('An error occured: ' . $e->getMessage()."\n");
-    
-    
 }
 
-
-    
+include "header.php";
 
 ?>
 <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
@@ -137,7 +134,6 @@ try {
 <script src="js/modules/exporting.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap-datepicker.js"></script>
-<!--    <script src="js/jquery-1.11.0.js"></script>-->
 
 
 <div id="wrapper">
@@ -148,7 +144,7 @@ try {
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <?php include "filter.php"; ?>            
+                <?php include "filter_date.php"; ?>            
                 <div class="section-wrapper">
 <!--                    <div id="myData"></div>-->
                     <section class="row">

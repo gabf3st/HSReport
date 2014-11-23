@@ -1,5 +1,6 @@
 <?php
     include "header.php"; 
+
 ?>
 
 <body>
@@ -8,11 +9,10 @@
         <?php include 'sidebar.html'?>
         <!-- /#sidebar-wrapper -->
 
+       <?php include_once "sidebar_top.html"; ?>
         <!-- Page Content -->
-        <?php include_once "sidebar_top.html"; ?>
         <div id="page-content-wrapper">
             <div class="container-fluid">
-               
                 <?php include "filter.php"; ?>
                 <div class="section-wrapper">
                     <div id="myData"></div>
@@ -22,8 +22,10 @@
     <!-- /#page-content-wrapper -->
     </div>
     <!-- /#wrapper -->
+    
 
     <!-- jQuery Version 1.11.0 -->
+    
     <script src="js/jquery-1.11.0.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -33,18 +35,17 @@
 
     <!-- Menu Toggle Script -->
     <script>
+       
         // When the document is ready
         $(document).ready(function() {
             //Set current menu active
-            $('#homecare').addClass('active');
-            $('#tm_homecare').addClass('active');
+            $('#register').addClass('active');
+            $('#tm_register').addClass('active');
             $('#datepicker').datepicker({
-                format: 'yyyy-mm-dd',
+                format: 'yyyy-mm-dd'
             });
             
             
-            $('#location').hide();
-
             $("#submit").click(function() {
                 $("#myForm").submit(function(e)
                 {
@@ -53,12 +54,12 @@
                     var formURL = $(this).attr("action");
                     $.ajax(
                     {
-                        url : "homecare_data.php",
+                        url : "register_data.php",
                         type: "POST",
                         data : postData,
                         success:function(data, textStatus, jqXHR) 
                         {
-                            $('#myData').hide().html(data).fadeIn('slow');
+                            $('#myData').hide().html(data).show();
 
                         },
                         error: function(jqXHR, textStatus, errorThrown) 
@@ -84,14 +85,12 @@
             $("#wrapper").toggleClass("toggled");
         });
         
+
         $("#filter-data").click(function(e) {
             $("#filter").toggle("100", "swing");
         });
-    
-        $("#export-data").click(function(e) {
-            window.open('data:application/vnd.ms-excel,' + $('#myData').html());
-            e.preventDefault();
-        });
+        
+        
     </script>
 
 </body>
