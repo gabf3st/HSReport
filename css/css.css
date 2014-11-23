@@ -285,11 +285,6 @@ table td {
 
 @media (max-width: 767px) 
 {
-    
-    #filter-data{
-        display: none;
-    }
-    
     .section-wrapper {
         border:2px;
         border-color: #d1d1d1;
