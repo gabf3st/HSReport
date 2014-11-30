@@ -56,7 +56,10 @@ and  detail like ''Announce Created%''')");
 		self::initializeConnection();
 		$result = null;
 		try {
-			$statement = self::$dbConn->prepare("call sp_genQueryEachProject2 ('[SELECT] count(*)  as tt from [PROJECT].community_msg  where is_shown = 1')");
+//			$statement = self::$dbConn->prepare("call sp_genQueryEachProject2 ('[SELECT] count(*)  as tt from [PROJECT].community_msg  where is_shown = 1')");
+			$statement = self::$dbConn->prepare("CALL sp_genQueryEachProject (
+CONCAT('[SELECT] count(*) FROM [PROJECT].community_msg 
+where   start_date >= ''', '".$startDate."',''' and end_date <= ''' ,'".$endDate."',''''),1)");
 			$statement->execute();
 			$statement->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
 			$result = $statement->fetchAll();
